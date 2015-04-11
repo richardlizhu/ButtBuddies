@@ -17,10 +17,20 @@ import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import android.util.Log;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+
 
 public class MainActivity extends ActionBarActivity implements
 		NavigationDrawerFragment.NavigationDrawerCallbacks {
-
+	
+	private static final String TAG = "MainActivity";
+	private static final String URL = "http://www.yourdomain.com:80";
+	
+	
+	
 	/**
 	 * Fragment managing the behaviors, interactions and presentation of the
 	 * navigation drawer.
@@ -45,7 +55,49 @@ public class MainActivity extends ActionBarActivity implements
 		// Set up the drawer.
 		mNavigationDrawerFragment.setUp(R.id.navigation_drawer,
 				(DrawerLayout) findViewById(R.id.drawer_layout));
+		
+		
+		// JSON object to hold the information, which is sent to the server
+				JSONObject jsonObjSend = new JSONObject();
+
+				try {
+					// Add key/value pairs
+					jsonObjSend.put("key_1", "value_1");
+					jsonObjSend.put("key_2", "value_2");
+
+					// Add a nested JSONObject (e.g. for header information)
+					JSONObject header = new JSONObject();
+					header.put("deviceType","Android"); // Device type
+					header.put("deviceVersion","2.0"); // Device OS version
+					header.put("language", "es-es");	// Language of the Android client
+					jsonObjSend.put("header", header);
+					
+					// Output the JSON object we're sending to Logcat:
+					Log.i(TAG, jsonObjSend.toString(2));
+
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+				// Send the HttpPostRequest and receive a JSONObject in return
+				
+				
+				//JSONObject jsonObjRecv = HttpClient.SendHttpPost(URL, jsonObjSend);
+				
+				
+
+				/*
+				 *  From here on do whatever you want with your JSONObject, e.g.
+				 *  1) Get the value for a key: jsonObjRecv.get("key");
+				 *  2) Get a nested JSONObject: jsonObjRecv.getJSONObject("key")
+				 *  3) Get a nested JSONArray: jsonObjRecv.getJSONArray("key") 
+				 */
+		
+		
 	}
+	
+	
+	
+	
 
 	@Override
 	public void onNavigationDrawerItemSelected(int position) {
