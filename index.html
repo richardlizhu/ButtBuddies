@@ -1,0 +1,171 @@
+<!doctype html>
+<html>
+
+<head>
+
+  <title>unquote</title>
+
+  <meta name="viewport" 
+  content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+  <script src="../components/webcomponentsjs/webcomponents.js">
+  </script>
+
+  <link rel="import" href="../components/font-roboto/roboto.html">
+  <link rel="import"
+    href="../components/core-header-panel/core-header-panel.html">
+  <link rel="import"
+    href="../components/core-toolbar/core-toolbar.html">
+  <link rel="import"
+    href="../components/paper-tabs/paper-tabs.html">
+  <link rel="import" href="post-list.html">
+	<link rel="import" href="../components/paper-button/paper-button.html">
+  <style>
+  html,body {
+    height: 100%;
+    margin: 0;
+    background-color: #E5E5E5;
+    font-family: 'RobotoDraft', sans-serif;
+  }
+  core-header-panel {
+    height: 100%;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch; 
+  }
+  core-toolbar {
+    background: #03a9f4;
+    color: white;
+  }
+  #tabs {
+    width: 100%;
+    margin: 0;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+	text-transform: uppercase;
+  }
+  .container {
+    width: 80%;
+    margin: 50px auto;
+  }
+  @media (min-width: 481px) {
+    #tabs {
+      width: 200px;
+    }
+    .container {
+      width: 400px;
+    }
+  }
+  </style>
+
+</head>
+
+  <style shim-shadowdom>
+    body {
+      font-family: sans-serif;
+    }
+    #Top{
+      background-color: #C37CEB;
+    }
+    
+	#sublevel{
+      background-color: #6AA1EB;
+    }
+    
+  </style>
+  
+<body unresolved>
+
+
+  
+  <core-header-panel>  
+    <core-toolbar id = "Top">
+        <paper-header name="BuddyFit">&nbsp;BUDDY FIT</paper-header>
+       <!-- <paper-tab name="favorites">Favorites</paper-tab> -->
+    </core-toolbar>
+	</br>
+
+	<core-field>
+		<!--<form is = "ajax-form" action ="my/form/handler" method="post"> /-->
+		<form id="art-form">
+		<div vertical start-justified layout style="height:450px; margin-left:60px">
+		<core-header-panel>
+<core-toolbar id = "sublevel">&nbsp;&nbsp;&nbsp;Basic Information </core-toolbar>
+		</br>
+		</br>
+	<label> <tab/>&nbsp;&nbsp;&nbsp;    Full Name: <input type = "text" id = "full_name" placeholder="Ex. John Smith" flex></label>
+	</br>
+	</br>
+	<label> </tab>&nbsp;&nbsp;&nbsp;    Username: <input type = "text" id = "user_name" placeholder="Ex. JSmizzle47" flex></label>
+	</br>
+	</br>
+	<label> </tab>&nbsp;&nbsp;&nbsp;    Password: <input id = "single" type = "password" name = "password" placeholder="Ex. 1Dr4g0nL0rd!" flex></label>
+	</core-header-panel>
+	</br>
+	</br>
+	</br>
+	</br>
+	
+	<core-header-panel>
+<core-toolbar id = "sublevel">	&nbsp;&nbsp;&nbsp; Credit Card Information </core-toolbar>
+	</br>
+	</br>
+	<div flex>
+	<label>&nbsp;&nbsp;&nbsp;    Credit Card Number: <input id = "creditCard" type = "text" name = "creditCard" placeholder="Ex. 0123456789123456" flex></label></br>
+	</br><label>&nbsp;&nbsp;&nbsp;    Security Code: <input id = "cardCode" type = "text" name = "cardCode"  flex></label></br>
+	</br><label>&nbsp;&nbsp;&nbsp;    Expiration Date: <input id = "expDate" type = "text" name = "expDate" placeholder="Ex. dd/mm/yyyy" flex></label>
+
+	<script>
+      var single = document.getElementById('single');
+      single.addEventListener('change', function() {
+        console.log('single: value committed: ', single.value);
+      });
+		</script>
+			</core-header-panel>
+	</div>
+	</form>
+	</br>
+	</br>
+	<paper-button onclick="clickAction(event);"> Submit</paper-button>
+	
+	
+	
+	<script>
+
+	function clickAction(e) {
+	
+    xmlhttp = new XMLHttpRequest();
+	var url = "http://2ff28cf1.ngrok.com/b";
+	xmlhttp.open("POST", url, true);
+	xmlhttp.setRequestHeader("Content-type", "application/json");
+	var parameters = {
+		"full_name": document.getElementById('full_name').value,
+		"user_name": document.getElementById('user_name').value,
+		"password": document.getElementById('single').value,
+		"creditCard": document.getElementById('creditCard').value,
+		"cardCode": document.getElementById('cardCode').value,
+		"expDate": document.getElementById('expDate').value,
+	};
+	console.log(parameters);
+		console.log(JSON.stringify(parameters));
+// Neither was accepted when I set with parameters="username=myname"+"&password=mypass" as the server may not accept that
+	console.log(xmlhttp.send(JSON.stringify(parameters)));
+console.log("Exiting");
+    }
+	
+	</script>
+  </core-field>
+  
+  
+  </core-header-panel>
+  
+  <script>
+  //var tabs = document.querySelector('paper-tabs');
+   // tabs.addEventListener('core-select', function() {
+    //  console.log("Selected: " + tabs.selected);
+    //});
+  </script>
+</body>
+
+</html>
